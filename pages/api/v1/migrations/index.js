@@ -6,7 +6,7 @@ import { throws } from "node:assert";
 export default async function migrataions(request, response) {
   const allowedMethod = ["GET", "POST"];
   if (!allowedMethod.includes(request.method)) {
-    return response.status(405).end({
+    return response.status(405).json({
       error: `Method "${request.method}" not allowed`,
     }); // 405 - significa não acho o methodos acima
   }
