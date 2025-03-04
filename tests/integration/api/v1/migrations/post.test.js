@@ -1,15 +1,16 @@
 import database from "infra/database";
+import orchestrator from "tests/orchestrator.js";
 
-beforeAll(limpaBaseDados); // roda isso antes de começar os testes
-async function limpaBaseDados() {
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
   await database.query("drop schema public cascade; create schema public;");
-}
+});
 
 test("post para api/v1/migrations retorna 200", async () => {
   const response1 = await fetch("http://localhost:3000/api/v1/migrations", {
     method: "POST",
   });
-  expect(response1.status).toBe(201); // 201 - criando a migration
+  expect(response1.status).toBe(201); // 201 - altecao foi criada a migration
 
   const response1Body = await response1.json();
   expect(Array.isArray(response1Body)).toBe(true);
