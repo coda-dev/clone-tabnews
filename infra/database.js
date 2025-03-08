@@ -26,7 +26,8 @@ async function getNewClient() {
   return client;
 }
 
-export default {
+const dataBase = {
   query,
   getNewClient,
 };
+export default dataBase;
