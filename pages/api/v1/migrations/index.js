@@ -44,7 +44,9 @@ export default async function migrataions(request, response) {
     }
   } catch (error) {
     console.error(error);
-    throw error;
+    throws.throw(() => {
+      throw error;
+    });
   } finally {
     await dbClient.end(); // tem que encerrar conexao depois rodar porque senao gera lock
   }
