@@ -1,5 +1,5 @@
 import rodarMigrations from "node-pg-migrate";
-import { join } from "node:path"; // trata o caminho do arquivo sitema operacional
+import { resolve } from "node:path"; // trata o caminho do arquivo sitema operacional
 import database from "infra/database";
 import { throws } from "node:assert";
 
@@ -18,7 +18,7 @@ export default async function migrataions(request, response) {
     const opcaoPadraoMigrataions = {
       dbClient: dbClient,
       dryRun: true,
-      dir: join("infra", "migrations"),
+      dir: resolve("infra", "migrations"),
       direction: "up",
       verbose: true,
       migrationsTable: "pgmigraations",
