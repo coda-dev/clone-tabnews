@@ -9,7 +9,7 @@ async function query(queryObject) {
   } catch (error) {
     console.error(error);
   } finally {
-    await client.end();
+    await client?.end(); // client? - significa se ele não possui propriedade undefined, ou seja, se nao e nulo
   }
 }
 
