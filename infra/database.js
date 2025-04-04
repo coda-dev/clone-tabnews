@@ -1,5 +1,5 @@
 import { Client } from "pg";
-
+import { ServiceError } from "./errors.js";
 async function query(queryObject) {
   let client; // usamos let porque não inicializamos a variavel mesma linha
   try {
@@ -7,7 +7,11 @@ async function query(queryObject) {
     const result = await client.query(queryObject);
     return result;
   } catch (error) {
-    console.error(error);
+    const errorObject = new ServiceError({
+      message: "Erro na conexão com banco de dados ou a query.",
+      cause: error,
+    });
+    throw errorObject;
   } finally {
     await client?.end(); // client? - significa se ele não possui propriedade undefined, ou seja, se nao e nulo
   }
