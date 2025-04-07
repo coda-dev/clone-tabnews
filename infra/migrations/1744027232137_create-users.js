@@ -16,11 +16,14 @@ exports.up = (pgm) => {
       notNull: true,
       unique: true,
     },
+    // pq usar 72 caracteres: https://security.stackexchange.com/a/39851
     password: {
       // foi escolhido 60 caracteres porque bcrypt gerar esse tamanho https://www.npmjs.com/package/bcrypt#hash-info
       type: "varchar(60)",
       notNull: true,
     },
+
+    // pq usar timestamptz: https://justatheory.com/2012/04/postgres-use-timestamptz/
     created_at: {
       type: "timestamptz",
       notNull: true,
