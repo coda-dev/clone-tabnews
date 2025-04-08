@@ -1,4 +1,8 @@
-import { InternalServerError, MethodNotAllowdedError } from "infra/errors";
+import {
+  InternalServerError,
+  MethodNotAllowdedError,
+  ValidationError,
+} from "infra/errors";
 
 function onNoMatchHandler(request, response) {
   const publicErrorObject = new MethodNotAllowdedError();
@@ -7,8 +11,12 @@ function onNoMatchHandler(request, response) {
 
 // essa funcao captura os erros gerados no metodo da nossa api
 function onErrorHandler(error, request, response) {
+  if (error instanceof ValidationError) {
+    return response.status(error.StatusCode).json(error);
+  }
+
   const publicServerError = new InternalServerError({
-    statusCode: error.statusCode,
+    StatusCode: error.StatusCode,
     cause: error,
   });
 
