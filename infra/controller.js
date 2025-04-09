@@ -2,6 +2,7 @@ import {
   InternalServerError,
   MethodNotAllowdedError,
   ValidationError,
+  NotFoundError,
 } from "infra/errors";
 
 function onNoMatchHandler(request, response) {
@@ -11,7 +12,7 @@ function onNoMatchHandler(request, response) {
 
 // essa funcao captura os erros gerados no metodo da nossa api
 function onErrorHandler(error, request, response) {
-  if (error instanceof ValidationError) {
+  if (error instanceof ValidationError || error instanceof NotFoundError) {
     return response.status(error.StatusCode).json(error);
   }
 
