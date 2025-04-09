@@ -7,7 +7,7 @@ const opcaoPadraoMigrataions = {
   dryRun: true,
   dir: resolve("infra", "migrations"),
   direction: "up",
-  verbose: true,
+  log: () => {},
   migrationsTable: "pgmigraations",
 };
 
